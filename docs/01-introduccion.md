@@ -26,11 +26,11 @@ El presente documento formaliza la metodología H-AXP mediante una arquitectura 
 
 ```mermaid
 graph TD
-    A["🌐 Auge de LLMs\n(Claude, GPT-4, Gemini)"]
-    B["⚡ Vibe Coding\nDesarrollo acelerado sin estructura"]
-    C["🏚️ Deuda Técnica\nAlucinaciones arquitectónicas"]
-    D["💸 Costo de Inferencia\nKV Cache Overflow"]
-    E["✅ H-AXP\nMarco estructurado Humano+IA"]
+    A["Auge de LLMs\n(Claude, GPT-4, Gemini)"]
+    B["Vibe Coding\nDesarrollo acelerado sin estructura"]
+    C["Deuda Técnica\nAlucinaciones arquitectónicas"]
+    D["Costo de Inferencia\nKV Cache Overflow"]
+    E["✅H-AXP\nMarco estructurado Humano+IA"]
 
     A --> B
     B --> C
@@ -46,7 +46,7 @@ graph TD
 
 ---
 
-## Resumen Ejecutivo
+## Resumen
 
 El auge de los Modelos de Lenguaje Grande (LLMs) ha transformado la ingeniería de software hacia paradigmas asistidos por agentes, generando incrementos significativos en velocidad pero introduciendo riesgos críticos de:
 

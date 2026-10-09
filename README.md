@@ -1,7 +1,7 @@
-# 🤖 Hybrid-Agentics eXtreme Programming (H-AXP)
+# Hybrid-Agentics eXtreme Programming (H-AXP)
 
-> **Autor:** Bruno Guzmán · Asunción, Paraguay · 08/10/2026  
-> **Categoría:** Metodología Ágil · Inteligencia Artificial · Ingeniería de Software
+> **Autor:** Bruno Guzmán, Estudiante de Ing. Informatica en la UNA · Asunción, Paraguay
+> **Categoría:** Metodología Ágil, Inteligencia Artificial, Ingeniería de Software, Desarrollo de Software.
 
 [![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-blue.svg)](LICENSE)
 [![Metodología: H-AXP](https://img.shields.io/badge/Metodolog%C3%ADa-H--AXP-purple.svg)](#)
@@ -13,7 +13,7 @@
 
 **H-AXP** es un marco de desarrollo de software híbrido y simbiótico que sintetiza la gobernanza macroscópica de **Scrum** con el rigor microscópico de **Extreme Programming (XP)**, estructurando el trabajo en torno a "Equipos H-AXP": binomios **Humano + Agente de IA** que operan como unidades de producción cohesionadas.
 
-La metodología responde a tres problemas críticos del desarrollo asistido por IA no estructurado:
+La metodología responde a tres problemas criticos del desarrollo asistido por IA no estructurado:
 
 | Problema | Descripción |
 |---|---|
@@ -27,19 +27,19 @@ La metodología responde a tres problemas críticos del desarrollo asistido por 
 
 ```mermaid
 graph TB
-    subgraph NUBE["☁️ CAPA ESTRATÉGICA (Nube)"]
+    subgraph NUBE["CAPA ESTRATÉGICA (Nube)"]
         A[Nodo Arquitectónico<br/>Tech Lead + IA Frontera]
         B[Contratos Inmutables<br/>DDL · Interfaces · Suite TDD]
     end
 
-    subgraph LOCAL["💻 CAPA TÁCTICA (Local)"]
+    subgraph LOCAL["CAPA TÁCTICA (Local)"]
         C[Nodo de Desarrollo<br/>Developer + Agente Local]
         D[Nodo de Calidad<br/>QA + Agente Razonador]
     end
 
     A -->|"Artefactos: esquemas, firmas, tests en ROJO"| C
     C -->|"Código fuente ejecutable en VERDE"| D
-    D -->|"Merge autorizado al main"| E[🌿 Main Branch]
+    D -->|"Merge autorizado al main"| E[Main Branch]
 
     style NUBE fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
     style LOCAL fill:#dcfce7,stroke:#22c55e,color:#14532d
@@ -76,22 +76,22 @@ mindmap
 
 ```mermaid
 graph LR
-    subgraph PRODUCTO["🎯 Nodo de Producto"]
+    subgraph PRODUCTO["Nodo de Producto"]
         PO[Product Owner<br/>Scrum Manager]
         CLI[Cliente]
     end
 
-    subgraph ARQUITECTURA["🏛️ Nodo Arquitectónico"]
+    subgraph ARQUITECTURA["Nodo Arquitectónico"]
         TL[Tech Lead]
         IA_NUBE[IA Frontera<br/>Claude / GPT-4]
     end
 
-    subgraph DESARROLLO["⚙️ Nodo de Desarrollo"]
+    subgraph DESARROLLO["Nodo de Desarrollo"]
         DEV[Developer]
         IA_LOCAL[Agente Local<br/>Cursor / Copilot]
     end
 
-    subgraph CALIDAD["🔍 Nodo de Calidad"]
+    subgraph CALIDAD["Nodo de Calidad"]
         QA[Revisor / QA]
         IA_RAZON[Agente Razonador<br/>CoT Local]
     end

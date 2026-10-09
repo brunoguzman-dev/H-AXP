@@ -97,17 +97,6 @@ gantt
     Estudio multi-hardware                 :2027-07, 4M
     Publicación académica                  :2027-11, 1M
 ```
-
----
-
-## Cita Sugerida
-
-```
-Guzmán, B. (2026). Hybrid-Agentic eXtreme Programming (H-AXP):
-Un marco de desarrollo de software híbrido y simbiótico para
-equipos Humano-IA. Asunción, Paraguay. Elaboración propia.
-```
-
 ---
 
 ← [Anterior: Ética y Propiedad Intelectual](09-etica-propiedad-intelectual.md) | [Volver al README](../README.md)

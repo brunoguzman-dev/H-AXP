@@ -2,7 +2,7 @@
 
 > Prompt del sistema para el Agente Local (Syntax Solver) que actúa como desarrollador en el Nodo de Desarrollo.
 >
-> **Importante:** Este prompt se usa con modelos locales ligeros (Cursor, Copilot, Claude Code, modelos 7B–14B en Ollama/LM Studio). Se escribe en inglés para maximizar el determinismo.
+> **Importante:** Este prompt se usa con modelos locales ligeros. Se escribe en inglés para maximizar el determinismo.
 
 ---
 

@@ -77,15 +77,23 @@ H-AXP responde a esta brecha combinando:
 | **Topología moderna de IA** | Inferencia híbrida: modelos de frontera en nube + modelos locales especializados |
 
 ```mermaid
-venn
-    title Fundamentos de H-AXP
-    A["Extreme Programming\n(Rigor técnico)"]
-    B["Scrum\n(Gestión ágil)"]
-    C["IA Agéntica\n(Inferencia híbrida)"]
-    AB["H-AXP\n(Síntesis)"]
-```
+flowchart TD
+    title[<b>Fundamentos de H-AXP</b>]
+    XP["<b>Extreme Programming (XP)</b><br/>• TDD Fail-First<br/>• Rigor técnico"] 
+    SCRUM["<b>SCRUM</b><br/>• Micro-Sprints<br/>• Gobernanza ágil"]
+    IA["<b>IA Agéntica</b><br/>• Inferencia híbrida<br/>• Ejecución Zero-Token"]
+    HAXP["<b>H-AXP\n(Síntesis)</b>"]
+    XP --> HAXP
+    SCRUM --> HAXP
+    IA --> title
+    HAXP--> title
 
-> ⚠️ *Nota:* El diagrama Venn es ilustrativo. Mermaid no soporta diagramas Venn nativamente; se puede reemplazar con un diagrama de flujo equivalente.
+
+    style HAXP fill:#1e3a8a,stroke:#3b82f6,stroke-width:3px,color:#ffffff
+    style XP fill:#1f2937,stroke:#4b5563,stroke-width:1px,color:#ffffff
+    style SCRUM fill:#1f2937,stroke:#4b5563,stroke-width:1px,color:#ffffff
+    style IA fill:#1f2937,stroke:#4b5563,stroke-width:1px,color:#ffffff
+````
 
 ---
 

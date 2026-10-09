@@ -2,7 +2,7 @@
 
 > Prompt del sistema para el modelo de IA Frontera que actúa como co-diseñador de dominio junto al Tech Lead.
 > 
-> **Importante:** Este prompt se usa con modelos de nube de alta capacidad de razonamiento (Claude Opus, GPT-4, Gemini Ultra). Se escribe en inglés para maximizar el determinismo de la instrucción.
+> **Importante:** Este prompt se usa con modelos de nube de alta capacidad de razonamiento. Se escribe en inglés para maximizar el determinismo de la instrucción.
 
 ---
 

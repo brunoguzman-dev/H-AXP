@@ -135,13 +135,13 @@ El humano (Tech Lead o Scrum Manager) no dialoga, sino que **inyecta variables**
 ```mermaid
 graph TD
     subgraph FASE1["FASE 1: DISEÑO ARQUITECTÓNICO → Nodo Arquitectónico (Nube)"]
-        US["<UserStory>\n• Formato BDD: Actor/Acción/Valor\n• Criterios de Aceptación booleanos\n• ⚠️ Riesgo: adjetivos vagos generan alucinaciones"]
-        CO["<Constraints>\n• Stack tecnológico exacto\n• Hardware de destino\n• Patrón de diseño\n• ⚠️ Riesgo: omitir permite inventar arquitecturas"]
+        US["< UserStory >\n• Formato BDD: Actor/Acción/Valor\n• Criterios de Aceptación booleanos\n• ⚠️ Riesgo: adjetivos vagos generan alucinaciones"]
+        CO["< Constraints >\n• Stack tecnológico exacto\n• Hardware de destino\n• Patrón de diseño\n• ⚠️ Riesgo: omitir permite inventar arquitecturas"]
     end
 
     subgraph FASE2["FASE 2: ITERACIÓN ZERO-TOKEN → Nodo Táctico (Local)"]
-        TI["<Target_Interface> & <Test_Suite>\n• Código fuente crudo (Raw code)\n• Sin contexto de negocio\n• ⚠️ Riesgo: lenguaje natural destruye precisión del AST"]
-        ST["<Stack_Trace>\n• Volcado exacto (copypaste) de stderr\n• Verdad empírica\n• ⚠️ Riesgo: añadir hipótesis humanas sesga a la IA"]
+        TI["<'Target_Interface>\n  &\n < Test_Suite >\n• Código fuente crudo (Raw code)\n• Sin contexto de negocio\n• ⚠️ Riesgo: lenguaje natural destruye precisión del AST"]
+        ST["< Stack_Trace >\n• Volcado exacto (copypaste) de stderr\n• Verdad empírica\n• ⚠️ Riesgo: añadir hipótesis humanas sesga a la IA"]
     end
 
     style FASE1 fill:#dbeafe,stroke:#3b82f6

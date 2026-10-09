@@ -23,34 +23,34 @@ La integración de Modelos de Lenguaje Grande (LLMs) en el núcleo operativo del
 
 ```mermaid
 flowchart TD
-    INICIO([🚀 Inicio de operación IA]) --> MONITOR{Monitor de\nrecursos activo}
+    INICIO([Inicio de operación IA]) --> MONITOR{Monitor de\nrecursos activo}
 
     MONITOR -->|RAM / VRAM > 85%| OOM
     MONITOR -->|Mismo parche fallido 2 veces| LOOP
     MONITOR -->|Interfaz modificada detectada| DRIFT
     MONITOR -->|Test pasa sin código real| TAUT
 
-    subgraph OOM["💾 KV Cache Overflow"]
+    subgraph OOM["KV Cache Overflow"]
         OOM1[Hard Kill — abortar petición]
         OOM2[VRAM Flush — reiniciar motor]
         OOM3[Model Tier-Down — modelo ligero]
         OOM1 --> OOM2 --> OOM3
     end
 
-    subgraph LOOP["🔄 Blind Looping"]
+    subgraph LOOP["Blind Looping"]
         L1[Regla de 3 — límite de intentos]
         L2[Purgado Markoviano del historial]
         L1 --> L2
     end
 
-    subgraph DRIFT["🏚️ Architectural Drift"]
+    subgraph DRIFT["Architectural Drift"]
         D1[pre-commit hook bloquea merge]
         D2[Alerta al Tech Lead]
         D3[Restaurar interfaz original desde git]
         D1 --> D2 --> D3
     end
 
-    subgraph TAUT["🎭 Falso Positivo Tautológico"]
+    subgraph TAUT["Falso Positivo Tautológico"]
         T1[Ejecutar Mutation Testing]
         T2[Rechazar contrato si mutaciones no fallan]
         T3[Devolver a Nodo Arquitectónico]

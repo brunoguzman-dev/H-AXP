@@ -16,7 +16,7 @@ Toda iteración bajo esta metodología se rige en cuatro principios inmutables d
 
 ```mermaid
 graph TD
-    subgraph AXIOMAS["⚖️ Axiomas H-AXP"]
+    subgraph AXIOMAS["Axiomas H-AXP"]
         A1["1️⃣ Soberanía Humana\nHuman-in-the-Loop\nIA propone · Humano autoriza"]
         A2["2️⃣ CONTRACT-FIRST\nNingún código sin contrato previo\nFail-First TDD obligatorio"]
         A3["3️⃣ Zero-Token Iteration\nCompilación/test solo en local\nNube reservada para arquitectura"]
@@ -67,12 +67,12 @@ graph TB
 
     subgraph NODO_ARQ["🏛️ NODO ARQUITECTÓNICO (Capa Nube)"]
         TL["Tech Lead + Arquitecto de Dominio\n• Traduce User Stories a contratos técnicos\n• Define esquemas DDL\n• Establece firmas de interfaces"]
-        IA_NUBE["IA Frontera (High-Reasoning)\n• Claude / GPT-4 / Gemini\n• Modela UML, esquemas SQL, suite TDD\n• NO genera código ejecutable"]
+        IA_NUBE["IA Frontera (High-Reasoning)\n• Modela UML, esquemas SQL, suite TDD\n• NO genera código ejecutable"]
     end
 
     subgraph NODO_DEV["⚙️ NODO DE DESARROLLO (Capa Local)"]
         DEV["Developer\n• Navega la estrategia algorítmica\n• Revisa lógica crítica\n• Itera ciclo Red-Green"]
-        IA_LOCAL["Agente Local (Sintaxis)\n• Cursor / Copilot / Claude Code\n• Autocompleta funciones\n• Corrige stack traces"]
+        IA_LOCAL["Agente Local (Sintaxis)\n• Cursor / Copilot / Claude Code / Antigravity\n• Autocompleta funciones\n• Corrige stack traces"]
     end
 
     subgraph NODO_QA["🔍 NODO DE CALIDAD (Capa Auditoría Local)"]
