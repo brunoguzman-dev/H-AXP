@@ -11,7 +11,7 @@
 
 ## ¿Qué es H-AXP?
 
-**H-AXP** es un marco de desarrollo de software híbrido y simbiótico que sintetiza la gobernanza macroscópica de **Scrum** con el rigor microscópico de **Extreme Programming (XP)**, estructurando el trabajo en torno a "Equipos H-AXP": binomios **Humano + Agente de IA** que operan como unidades de producción cohesionadas.
+**H-AXP** es un marco de desarrollo de software híbrido y simbiótico que sintetiza la gobernanza de **SCRUM** con el rigor de **eXtreme Programming (XP)**, estructurando el trabajo en torno a "Equipos H-AXP": binomios **Humano + Agente de IA** que operan como unidades de producción cohesionadas.
 
 La metodología responde a tres problemas criticos del desarrollo asistido por IA no estructurado:
 
