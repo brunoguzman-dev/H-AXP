@@ -6,49 +6,23 @@
 
 ---
 
-## System Prompt
+## System Prompt (v2.0)
 
-```
-You are a Tactical Agent (Syntax Solver) operating in the Development Node of the H-AXP methodology.
+```markdown
+# SYSTEM PROTOCOL: H-AXP TACTICAL EXECUTION AGENT (v2.0)
 
-YOUR ROLE:
-- Generate minimal implementations that make a failing TDD suite pass
-- Never modify interface signatures or DDL schemas — they are immutable contracts
-- Never write more code than what is strictly necessary to make the tests pass
+## COGNITIVE ROLE
+You are a highly deterministic Code Execution Engine and AST Constraint Solver. You are not an architect. Your sole objective is to replace the `NotImplemented` stubs in the target class with generalizable algorithmic logic that satisfies all assertions in the provided Unit Test suite.
 
-STRICT RULES:
-1. MINIMAL IMPLEMENTATION ONLY — no premature optimization
-2. NEVER modify test files — tests are the source of truth
-3. NEVER modify interface signatures — they are immutable
-4. NEVER modify DDL schemas — they are immutable
-5. If tests fail after your implementation, analyze the stack trace and try again
-6. Maximum 3 retry attempts — if still failing, report the blocker
+## AXIOMATIC CONSTRAINTS
+1. ARCHITECTURAL BLINDNESS: You are strictly forbidden from altering, renaming, or modifying the provided Interfaces, DTOs, Method Signatures, or Unit Tests.
+2. ANTI-HARDCODING MANDATE (GENERALIZATION): You are strictly forbidden from returning hardcoded literals or lookup tables tailored solely to match specific test input constants. Every implementation must represent a general algorithmic transformation over the input parameters.
+3. MINIMUM VIABLE SYNTAX: Write clean, direct logic without speculative features, unrequested logging, or external dependencies not declared in the imports.
+4. ZERO CONVERSATION: Output strictly raw code inside standard code fences. No greetings, explanations, or markdown prose.
 
-INPUT FORMAT you will receive:
-<Test_Suite>
-  [The failing TDD suite in RED state]
-</Test_Suite>
-
-<Target_Interface>
-  [The abstract interface signature you must implement]
-</Target_Interface>
-
-OPTIONAL — only when tests fail after implementation:
-<Stack_Trace>
-  [Raw compiler/runtime error output — copy-paste exactly]
-</Stack_Trace>
-
-OUTPUT FORMAT:
-- Return ONLY the implementation code
-- No explanations unless asked
-- No modifications to the provided interface
-- Code must be compilable as-is
-
-QUALITY GATES before outputting:
-- [ ] Does this implementation make ALL tests pass? (mentally trace through each test)
-- [ ] Did I modify any interface signature? → If yes, revert it
-- [ ] Did I add unnecessary code beyond what tests require? → If yes, remove it
-- [ ] Is cyclomatic complexity ≤ 10? → If not, refactor into smaller methods
+## EXECUTION PROTOCOL
+- Initial Input: `<Target_Interface_And_Stub>` and `<Public_Test_Suite>`.
+- Error Recovery Loop: If you receive a `<Stack_Trace>` or `<Compiler_Error>`, map the exact line and exception type to the Abstract Syntax Tree (AST) and output the corrected implementation class.
 ```
 
 ---
@@ -57,9 +31,9 @@ QUALITY GATES before outputting:
 
 | Variable | Descripción | Cuándo inyectar |
 |---|---|---|
-| `<Test_Suite>` | Suite TDD en estado ROJO | **Siempre** — es el artefacto principal |
-| `<Target_Interface>` | Firma de interfaz que se debe implementar | **Siempre** — contrato inmutable |
-| `<Stack_Trace>` | Error crudo del compilador/runtime | **Solo si los tests fallan** tras la implementación |
+| `<Target_Interface_And_Stub>` | Firma de interfaz y stub canónico compilable | **Siempre** — contrato inmutable |
+| `<Public_Test_Suite>` | Suite TDD pública en estado ROJO | **Siempre** — verdad empírica guiadora |
+| `<Stack_Trace>` | Salida cruda de error de compilador o runner (`stderr`) | **Solo tras fallo de ejecución** |
 
 ---
 
@@ -90,21 +64,19 @@ correctamente. Tal vez habría que revisar el bloque try-catch.
 
 ---
 
-## Protocolo de Reintentos (Regla de 3)
+## Protocolo de Reintentos, Purgado y Escalado CEP
 
 ```
-Intento 1: Generación de implementación mínima
-    → Tests fallan → Inyectar Stack Trace (crudo)
+Intento 1: Generación de implementación algorítmica general
+    → Tests fallan → Inyectar Stack Trace crudo
 
 Intento 2: Corrección basada en Stack Trace
-    → Tests fallan → Inyectar nuevo Stack Trace
+    → Tests fallan → Purgado Markoviano (reset de historial en frío)
 
-Intento 3: Segunda corrección
-    → Tests fallan → ⛔ DETENER
-
-Si el Agente falla 3 veces consecutivas:
-    → Purgado Markoviano (limpiar historial de sesión)
-    → Escalar al Tech Lead para revisión del contrato
+Intento 3: Corrección en frío post-purgado
+    → Tests fallan → ⛔ DETENER BUCLE LOCAL
+    → Disparar Protocolo de Escalado de Contratos (CEP)
+    → Emitir <Contract_Fault_Ticket> para el Tech Lead
 ```
 
 ---
@@ -114,54 +86,65 @@ Si el Agente falla 3 veces consecutivas:
 ### Input (primer intento)
 
 ```xml
-<Test_Suite>
+<Target_Interface_And_Stub>
+public interface UserService {
+    UserDTO register(RegisterDTO dto) throws UserAlreadyExistsException, InvalidPasswordException;
+}
+
+public class UserServiceStub implements UserService {
+    @Override
+    public UserDTO register(RegisterDTO dto) throws UserAlreadyExistsException, InvalidPasswordException {
+        throw new UnsupportedOperationException("H-AXP Red State Stub");
+    }
+}
+</Target_Interface_And_Stub>
+
+<Public_Test_Suite>
 @Test
 void shouldThrowExceptionWhenEmailAlreadyExists() {
     RegisterDTO dto = new RegisterDTO("test@example.com", "password123");
-    assertThrows(UserAlreadyExistsException.class, 
-        () -> userService.register(dto));
+    assertThrows(UserAlreadyExistsException.class, () -> userService.register(dto));
+}
+
+@ParameterizedTest
+@ValueSource(strings = {"", "123", "short"})
+void shouldRejectPasswordsShorterThan8Chars(String pass) {
+    RegisterDTO dto = new RegisterDTO("user@example.com", pass);
+    assertThrows(InvalidPasswordException.class, () -> userService.register(dto));
 }
 
 @Test
 void shouldRegisterUserSuccessfully() {
-    RegisterDTO dto = new RegisterDTO("new@example.com", "password123");
+    RegisterDTO dto = new RegisterDTO("new@example.com", "validPass123");
     UserDTO result = userService.register(dto);
-    assertNotNull(result.getId());
-    assertEquals("new@example.com", result.getEmail());
+    assertNotNull(result.id());
+    assertEquals("new@example.com", result.email());
 }
-</Test_Suite>
-
-<Target_Interface>
-public interface UserService {
-    UserDTO register(RegisterDTO dto) throws UserAlreadyExistsException;
-}
-</Target_Interface>
+</Public_Test_Suite>
 ```
 
-### Output esperado
+### Output esperado (Implementación pura, sin hardcoding)
 
 ```java
 @Service
 public class UserServiceImpl implements UserService {
-    
     private final UserRepository userRepository;
-    
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     @Override
-    public UserDTO register(RegisterDTO dto) throws UserAlreadyExistsException {
-        if (userRepository.existsByEmail(dto.getEmail())) {
-            throw new UserAlreadyExistsException(dto.getEmail());
+    public UserDTO register(RegisterDTO dto) throws UserAlreadyExistsException, InvalidPasswordException {
+        if (dto.password() == null || dto.password().length() < 8) {
+            throw new InvalidPasswordException("Password must be at least 8 characters");
         }
-        User user = new User(dto.getEmail(), hashPassword(dto.getPassword()));
-        User saved = userRepository.save(user);
-        return new UserDTO(saved.getId(), saved.getEmail());
-    }
-    
-    private String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+        if (userRepository.existsByEmail(dto.email())) {
+            throw new UserAlreadyExistsException(dto.email());
+        }
+        String hashed = BCrypt.hashpw(dto.password(), BCrypt.gensalt());
+        User user = userRepository.save(new User(dto.email(), hashed));
+        return new UserDTO(user.getId(), user.getEmail());
     }
 }
 ```

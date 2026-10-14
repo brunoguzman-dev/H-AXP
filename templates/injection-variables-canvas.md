@@ -15,6 +15,7 @@
 │                                                                     │
 │  <UserStory id="US-___" priority="HIGH|MEDIUM|LOW">                 │
 │    <Title>_______________________________________________</Title>    │
+│    <PrivacyLevel>LEVEL_1_STANDARD | LEVEL_2_ISOMORPHIC</PrivacyLevel>│
 │    <Narrative>                                                      │
 │      As a [ROL],                                                    │
 │      I want to [ACCIÓN],                                           │
@@ -29,14 +30,15 @@
 │      <Language>_____________________________________________</Language>│
 │      <Framework>___________________________________________</Framework>│
 │      <Database>____________________________________________</Database>│
-│      <TestFramework>_______________________________________</TestFramework>│
+│      <Architecture>Hexagonal / Clean Architecture</Architecture>    │
+│      <TestFramework>JUnit 5 + PBT / Hypothesis / jqwik</TestFramework>│
 │    </TechConstraints>                                               │
 │    <DomainSchema>                                                   │
 │      [DDL existente o "No existing schema — generate new"]         │
 │    </DomainSchema>                                                  │
 │  </UserStory>                                                       │
 │                                                                     │
-│  ⚠️  NUNCA incluir: datos reales, PII, código ejecutable           │
+│  ⚠️ NUNCA incluir: datos reales, PII. Si es LEVEL_2, aplicar ofuscación│
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -47,23 +49,24 @@
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │           CANVAS 2A: INYECCIÓN AL NODO TÁCTICO — TURNO 1           │
-│                    (Agente Local — Sin implementación)              │
+│                    (Agente Local — Conductor Zero-Token)            │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  <Test_Suite>                                                       │
-│    [COPYPASTE ÍNTEGRO de la suite TDD generada por Nodo Arq.]      │
-│    — Incluir todos los @Test / test_ / it() / describe()           │
-│    — NO resumir ni parafrasear                                      │
-│  </Test_Suite>                                                      │
+│  <Target_Interface_And_Stub>                                        │
+│    [COPYPASTE ÍNTEGRO de las interfaces y el Stub Canónico]         │
+│    — El stub lanza UnsupportedOperationException                    │
+│    — El proyecto compila al 100% en limpio                          │
+│    — Inmutable: prohibido alterar firmas o tipos                    │
+│  </Target_Interface_And_Stub>                                       │
 │                                                                     │
-│  <Target_Interface>                                                 │
-│    [COPYPASTE ÍNTEGRO de la firma de interfaz]                     │
-│    — Solo firmas de métodos, sin cuerpo                            │
-│    — NO modificar, es inmutable                                     │
-│  </Target_Interface>                                                │
+│  <Public_Test_Suite>                                                │
+│    [COPYPASTE ÍNTEGRO de la suite TDD pública]                     │
+│    — Casos de ejemplo + Property-Based Tests                        │
+│    — Prohibido hardcoding de constantes (Mandato Anti-Overfitting)  │
+│  </Public_Test_Suite>                                               │
 │                                                                     │
-│  ✅ Correcto: Código fuente exacto                                  │
-│  ❌ Incorrecto: "El test verifica que..."                           │
+│  ✅ Correcto: Código fuente exacto sin lenguaje natural             │
+│  ❌ Incorrecto: Inyectar UserStory o explicaciones conversacionales │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -77,16 +80,16 @@
 │                  (Agente Local — Corrección de errores)             │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  <Test_Suite>                                                       │
-│    [MISMO contenido del Turno 1 — no cambiar]                      │
-│  </Test_Suite>                                                      │
+│  <Target_Interface_And_Stub>                                        │
+│    [MISMO contenido del Turno 1 — inmutable]                        │
+│  </Target_Interface_And_Stub>                                       │
 │                                                                     │
-│  <Target_Interface>                                                 │
-│    [MISMO contenido del Turno 1 — no cambiar]                      │
-│  </Target_Interface>                                                │
+│  <Public_Test_Suite>                                                │
+│    [MISMO contenido del Turno 1 — inmutable]                        │
+│  </Public_Test_Suite>                                               │
 │                                                                     │
 │  <Stack_Trace>                                                      │
-│    [COPYPASTE CRUDO del output del compilador/runner]              │
+│    [COPYPASTE CRUDO de stderr del compilador o runner]              │
 │    Ejemplo:                                                         │
 │    FAIL: test_register_duplicate_email                              │
 │      AssertionError: Expected UserAlreadyExistsException            │
@@ -94,14 +97,14 @@
 │        at UserServiceTest.java:23                                   │
 │  </Stack_Trace>                                                     │
 │                                                                     │
-│  ✅ Correcto: Output exacto del compilador                          │
-│  ❌ Incorrecto: "Creo que el error es que..."                       │
+│  ⚠️ En Intento 2: Purgado Markoviano (limpiar KV Cache antes de reintentar)│
+│  🚨 En Intento 3: Si falla, DETENER y emitir <Contract_Fault_Ticket> │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Canvas del Nodo de Calidad (Auditoría CoT)
+## Canvas del Nodo de Calidad (Auditoría CoT y SEARCH/REPLACE)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -111,58 +114,55 @@
 │                                                                     │
 │  <Green_Code>                                                       │
 │    [COPYPASTE ÍNTEGRO de la implementación que pasa los tests]     │
-│    — Incluir todos los archivos de implementación                   │
-│    — NO incluir archivos de test                                    │
-│    — NO incluir archivos de interfaz                                │
+│    — Inyectar en frío tras State Wiping                             │
 │  </Green_Code>                                                      │
 │                                                                     │
-│  <Test_Suite>                                                       │
-│    [COPYPASTE ÍNTEGRO de la suite TDD]                             │
-│    — Para que el Agente verifique que su diff no rompe tests       │
-│  </Test_Suite>                                                      │
+│  <Public_TDD_Suite>                                                │
+│    [COPYPASTE ÍNTEGRO de la suite TDD para verificación]           │
+│  </Public_TDD_Suite>                                                │
 │                                                                     │
 │  <Target_Interface>                                                 │
 │    [COPYPASTE ÍNTEGRO de la firma de interfaz]                     │
-│    — Para contexto del dominio                                      │
 │  </Target_Interface>                                                │
 │                                                                     │
-│  ✅ El Agente Razonador solo AUDITA y propone — el QA DECIDE       │
+│  Salida esperada del agente:                                        │
+│    1. <think> Cálculo Big O, McCabe M <= 10, C_cog <= 12 </think>  │
+│    2. <Audit_Metrics> Tabla comparativa pre vs post refactor </Audit_Metrics>│
+│    3. <<<<<<< SEARCH ... ======= ... >>>>>>> REPLACE                │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Tabla de Reglas de Inyección
+## Tabla de Reglas de Inyección (v2.0)
 
 | Variable | Nodo | ¿Obligatoria? | Formato | Nunca incluir |
 |---|---|---|---|---|
-| `<UserStory>` | Arquitectónico | ✅ Sí | XML estructurado | PII, datos reales |
-| `<TechConstraints>` | Arquitectónico | ✅ Sí | XML estructurado | Credenciales, tokens |
-| `<DomainSchema>` | Arquitectónico | ⚪ Si existe | DDL/SQL | Datos de producción |
-| `<Test_Suite>` | Táctico | ✅ Sí | Código fuente exacto | Interpretación en prosa |
-| `<Target_Interface>` | Táctico | ✅ Sí | Código fuente exacto | Implementación |
-| `<Stack_Trace>` | Táctico | ⚪ Si falla | Output crudo del compilador | Paráfrasis o interpretación |
-| `<Green_Code>` | Calidad | ✅ Sí | Código fuente exacto | Tests, interfaces |
+| `<UserStory>` | Arquitectónico | ✅ Sí | XML estructurado con PrivacyLevel | PII, datos reales |
+| `<Constraints>` | Arquitectónico | ✅ Sí | XML estructurado (Stack, Hexagonal) | Credenciales |
+| `<DomainSchema>` | Arquitectónico | ⚪ Si existe | DDL/SQL estructural | Datos de producción |
+| `<Target_Interface_And_Stub>` | Táctico | ✅ Sí | Código fuente con Stub Canónico | Implementación de negocio |
+| `<Public_TDD_Suite>` | Táctico | ✅ Sí | Código fuente TDD + PBT | Lenguaje natural |
+| `<Stack_Trace>` | Táctico | ⚪ Si falla | Output crudo de stderr | Paráfrasis o hipótesis humanas |
+| `<Shadow_Validation_Suite>` | Gatekeeper Pre-commit | ✅ Sí | Tests con entradas ortogonales | Inyección al Nodo Táctico |
+| `<Green_Code>` | Calidad | ✅ Sí | Código fuente funcional | Tests, interfaces |
 
 ---
 
 ## Reglas de Micro-Contexting
 
 ```
-REGLA 1 — IDENTIDAD ÚNICA
-  Cada Agente recibe UN SOLO System Prompt.
-  Nunca combinar prompts de Nodo Táctico y Nodo de Calidad en el mismo contexto.
+REGLA 1 — IDENTIDAD Y RESPONSABILIDAD ÚNICA
+  Cada Agente recibe UN SOLO System Prompt de su nodo correspondiente.
+  Nunca combinar roles arquitectónicos, tácticos o de auditoría.
 
-REGLA 2 — STATE WIPING
-  Antes de cada nuevo Micro-Sprint:
-  → Limpiar historial de sesión del Agente Táctico
-  → Iniciar nuevo contexto vacío
-  → Re-inyectar las variables desde cero
+REGLA 2 — STATE WIPING & PURGADO MARKOVIANO
+  → Antes de iniciar la auditoría de calidad: purgar la sesión del IDE.
+  → Al segundo fallo consecutivo en Fase Verde: purgar la memoria KV Cache.
 
-REGLA 3 — SEGREGACIÓN DE ARTEFACTOS
-  El Agente Táctico NUNCA recibe código ya escrito de otros componentes.
-  El Agente de Calidad NUNCA recibe la User Story original.
-  Cada Agente recibe SOLO lo que necesita para su tarea.
+REGLA 3 — SEGREGACIÓN TOTAL DE ARTEFACTOS
+  El Agente Táctico NUNCA recibe la User Story en lenguaje natural ni la Shadow Suite.
+  El Agente de Calidad NUNCA recibe el historial de ensayo-error de la fase de codificación.
 ```
 
 ---

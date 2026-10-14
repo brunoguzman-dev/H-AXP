@@ -29,15 +29,15 @@ flowchart TD
 
     PASO2 --> PASO3
 
-    subgraph PASO3["⬇️ PASO 3: MODEL TIER-DOWN"]
+    subgraph PASO3["⬇️ PASO 3: MODEL TIER-DOWN & AST METHOD SLICING"]
         P3A["Suspender Modelo Primario\n7B–14B parámetros"]
-        P3B["Activar Modelo Ligero\n3B parámetros"]
-        P3C["Motivo: Mantener flujo\ncuando IDE/Docker\nexigen demasiada RAM"]
-        P3D["Compensar con\naislamiento de contexto\nmás estricto"]
+        P3B["Activar Modelo Ligero (3B)\n+ AST Method Slicing"]
+        P3C["Modo Micro-Foco: Aislar\n1 método y 1 aserción a la vez"]
+        P3D["Reducción > 75% en KV Cache\ny prevención de atención cruzada"]
         P3A --> P3B --> P3C --> P3D
     end
 
-    PASO3 --> CONTINUAR(["✅ Continuar operación\ncon modelo ligero\n+ contexto reducido"])
+    PASO3 --> CONTINUAR(["✅ Continuar operación\ncon modelo 3B\ny método individual congelado"])
 
     style TRIGGER fill:#fee2e2,stroke:#ef4444
     style PASO1 fill:#fef9c3,stroke:#ca8a04

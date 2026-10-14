@@ -1,0 +1,37 @@
+# .haxp.yaml - Manifiesto de Gobernanza de Proyecto H-AXP (v2.0)
+version: "2.0"
+project:
+  name: "h-axp-reference-framework"
+  micro_sprint_days: 5
+  privacy_level: "LEVEL_1_STANDARD" # Opciones: LEVEL_1_STANDARD | LEVEL_2_ISOMORPHIC
+
+nodes:
+  strategic_cloud:
+    provider: "frontier-reasoning-api"
+    max_token_budget_per_story: 8000
+    enforce_canonical_stubs: true
+    require_shadow_suite: true
+
+  tactical_local:
+    runtime: "ollama"
+    primary_model: "qwen2.5-coder:14b-instruct-q4_K_M"
+    fallback_tier_down_model: "qwen2.5-coder:3b-instruct-q8_0"
+    context_window_limit: 8192
+    markovian_purge_after_failures: 2
+    max_attempts_before_escalation: 3
+    natural_language_isolation: true # Bloquea inyección de <UserStory>
+    ast_method_slicing_on_tier_down: true
+
+  quality_auditor_local:
+    runtime: "ollama"
+    reasoning_model: "deepseek-r1:14b-q4_K_M"
+    state_wiping: true
+    patch_format: "AST_SEARCH_REPLACE"
+
+metrics_thresholds:
+  contract_mutation_rate_max: 0.0
+  mccabe_cyclomatic_max: 10
+  cognitive_complexity_max: 12
+  human_arbitration_time_ratio_max: 0.25
+  mutation_testing_score_min: 0.85
+  hardware_ttft_kill_switch_ms: 5000

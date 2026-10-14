@@ -32,32 +32,33 @@ graph LR
 
 ---
 
-## Aportes Principales
+## Aportes Principales (v2.0)
 
 | Aporte | Descripción |
 |---|---|
-| **Arquitectura de dos capas** | Separación clara entre diseño estratégico (Nube) y ejecución táctica (Local) |
-| **TDD Zero-Token** | El ciclo Red-Green-Refactor se ejecuta íntegramente en hardware local, sin costo de API |
-| **Micro-Contexting** | Segregación estricta de la carga cognitiva entre agentes mediante System Prompts deterministas |
-| **H-AXP Risk Matrix** | Protocolo formal de mitigación de degradación estocástica en agentes de IA |
-| **Nodos Simbióticos** | Extensión del Pair Programming de XP a binomios Humano-IA en todas las capas |
+| **Arquitectura de dos capas y Trunk-Based** | Separación formal entre diseño estratégico (Nube) y ejecución táctica (Local) gobernada por Commit 0 inmutable |
+| **TDD Zero-Token & Doble Anillo** | Ciclo Red-Green con Stubs Canónicos, Property-Based Testing (PBT) y suites sombra anti-sobreajuste |
+| **Micro-Contexting y AST Slicing** | Segregación estricta de prompts deterministas y aislamiento por métodos para modelos de 3B |
+| **Protocolo CEP y Fallbacks** | Escalado formal de contratos bloqueantes mediante `<Contract_Fault_Ticket>` y purgado markoviano |
+| **Ofuscación Ontológica** | Mapeo isomórfico de historias de usuario a dominios abstractos para proteger secretos industriales |
+| **Marco Métrico Integral** | Métricas formales de balance empírico: $TCF_{total}$, $CMR = 0\%$, $HATR \le 25\%$, $MS \ge 85\%$, $\mathcal{M} \le 10$ y $\mathcal{C}_{cog} \le 12$ |
 
 ---
 
 ## H-AXP resuelve la tensión entre velocidad y rigor
 
-H-AXP resuelve la tensión entre velocidad de entrega y rigor técnico, permitiendo que equipos de desarrollo mantengan un alto rendimiento sin comprometer la integridad arquitectónica de sus sistemas.
+H-AXP resuelve la tensión entre velocidad de entrega y rigor técnico, permitiendo que equipos de desarrollo mantengan un alto rendimiento sin comprometer la integridad arquitectónica de sus sistemas ni incurrir en costos de inferencia inviables.
 
 ```mermaid
 quadrantChart
-    title Posicionamiento de H-AXP
+    title Posicionamiento de H-AXP v2.0
     x-axis "Velocidad de entrega" --> Alta
     y-axis "Rigor técnico" --> Alto
-    quadrant-1 "Objetivo H-AXP"
+    quadrant-1 "Objetivo H-AXP v2.0"
     quadrant-2 "Metodologías ágiles clásicas"
     quadrant-3 "Desarrollo ad-hoc"
     quadrant-4 "Vibe Coding"
-    H-AXP: [0.85, 0.90]
+    H-AXP v2.0: [0.88, 0.94]
     XP Clásico: [0.55, 0.85]
     Scrum: [0.60, 0.60]
     Vibe Coding: [0.90, 0.15]
@@ -68,14 +69,14 @@ quadrantChart
 
 ## Líneas de Trabajo Futuro
 
-### 1. 🔧 Automatización de Linters de Micro-Contexting
-Desarrollo de herramientas de análisis estático que midan y purguen automáticamente la KV Cache antes de cada compilación local. Esto permitiría eliminar la intervención manual en el paso de *State Wiping*.
+### 1. 🔧 Automatización de Linters y Git Hooks Deterministas
+Implementación y empaquetado del guardián de *pre-commit* y herramientas CLI (`haxp-cli`) que auditen firmas SHA-256 de contratos, ejecuten suites sombra de forma desatendida y monitoreen la ocupación de KV Cache.
 
 ### 2. 🔬 Protocolos de Verificación Formal en Nube
-Integración de demostradores de teoremas para validar formalmente que las suites de TDD generadas por el modelo de nube son semánticamente completas antes de ser inyectadas en la capa táctica.
+Integración de asistentes de demostración formal y model checkers para validar que los esquemas DDL y las suites de pruebas cubran exhaustivamente el espacio de estados antes de bajar a la Capa Local.
 
 ### 3. 📊 Benchmarking Empírico Multi-Hardware
-Publicación de estudios de campo comparando la ejecución de H-AXP a través de diversas configuraciones de hardware y stacks tecnológicos empresariales, con métricas reales de DD, CMR, LTPR, TCF y M.
+Publicación de estudios de campo comparando la ejecución de H-AXP a través de diversas configuraciones de hardware y stacks tecnológicos empresariales, con métricas reales de $DD$, $CMR$, $LTPR$, $TCF_{total}$, $HATR$ y $MS$.
 
 ---
 
@@ -89,13 +90,13 @@ gantt
     Experimento controlado (grupos A/B/C)  :2026-10, 3M
     Publicación de resultados              :2027-01, 1M
     section Tooling
-    Linter de Micro-Contexting             :2027-02, 2M
-    Git Hook de Drift Guard (open source)  :2027-02, 1M
+    CLI y Git Hook Determinista (haxp-cli) :2027-02, 2M
+    Soporte AST Method Slicing para Ollama :2027-03, 2M
     section Verificación Formal
-    Integración con theorem provers        :2027-04, 3M
+    Integración con PBT y model checkers   :2027-05, 3M
     section Benchmarking
-    Estudio multi-hardware                 :2027-07, 4M
-    Publicación académica                  :2027-11, 1M
+    Estudio industrial multi-hardware      :2027-08, 4M
+    Publicación académica (Peer-Reviewed)  :2027-11, 1M
 ```
 ---
 

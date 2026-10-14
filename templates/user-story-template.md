@@ -12,6 +12,7 @@
 <UserStory id="US-[número]" priority="[HIGH|MEDIUM|LOW]">
   
   <Title>[Título corto de la historia]</Title>
+  <PrivacyLevel>[LEVEL_1_STANDARD | LEVEL_2_ISOMORPHIC]</PrivacyLevel>
   
   <Narrative>
     As a [rol del usuario],
@@ -20,9 +21,9 @@
   </Narrative>
   
   <AcceptanceCriteria>
-    <Criterion id="AC-1">[Criterio de aceptación 1 — verificable y medible]</Criterion>
-    <Criterion id="AC-2">[Criterio de aceptación 2]</Criterion>
-    <Criterion id="AC-3">[Criterio de aceptación 3]</Criterion>
+    <Criterion id="AC-1">[Criterio de aceptación 1 — booleano, verificable y medible]</Criterion>
+    <Criterion id="AC-2">[Criterio de aceptación 2 — booleano]</Criterion>
+    <Criterion id="AC-3">[Criterio de aceptación 3 — booleano]</Criterion>
     <!-- Agregar más criterios según sea necesario -->
   </AcceptanceCriteria>
   
@@ -30,7 +31,8 @@
     <Language>[Lenguaje de programación, ej: Java 21]</Language>
     <Framework>[Framework principal, ej: Spring Boot 3.2]</Framework>
     <Database>[Motor de base de datos, ej: PostgreSQL 16]</Database>
-    <TestFramework>[Framework de testing, ej: JUnit 5 + Mockito]</TestFramework>
+    <Architecture>[Hexagonal / Ports & Adapters / Clean Architecture]</Architecture>
+    <TestFramework>[Framework de testing + PBT, ej: JUnit 5 + jqwik / Hypothesis]</TestFramework>
     <AdditionalConstraints>[Otras restricciones técnicas si aplica]</AdditionalConstraints>
   </TechConstraints>
   
@@ -53,10 +55,11 @@
 
 ## Checklist de Validación (antes de enviar al Nodo Arquitectónico)
 
-### Seguridad y Privacidad
+### Seguridad, Privacidad y Soberanía Ontológica
 
-- [ ] ¿La historia NO contiene datos reales de producción?
-- [ ] ¿Los criterios de aceptación NO incluyen PII (Información de Identificación Personal)?
+- [ ] ¿La historia NO contiene datos reales de producción ni PII?
+- [ ] ¿Se clasificó correctamente el nivel de confidencialidad (`LEVEL_1` o `LEVEL_2`)?
+- [ ] Si es `LEVEL_2_ISOMORPHIC`: ¿Se aplicó la ofuscación ontológica antes de la nube y se preparó el `domain-map.json` local?
 - [ ] ¿El esquema DDL es solo estructural, sin datos de ejemplo reales?
 
 ### Completitud

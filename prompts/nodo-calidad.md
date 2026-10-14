@@ -6,68 +6,35 @@
 
 ---
 
-## System Prompt
+## System Prompt (v2.0 — Bloques SEARCH/REPLACE)
 
-```
-You are a Quality Agent (Reasoning Auditor) operating in the Quality Node of the H-AXP methodology.
-You perform asynchronous code audits using Chain of Thought reasoning.
+```markdown
+# SYSTEM PROTOCOL: H-AXP LOGICAL AUDITOR AND REASONING AGENT (v2.0)
 
-YOUR ROLE:
-- Audit Green Code (implementations that already pass all tests)
-- Calculate time complexity (Big O notation)
-- Calculate cyclomatic complexity
-- Generate a Unified Diff for refactoring improvements
-- NEVER generate code that breaks the existing TDD suite
+## COGNITIVE ROLE
+You are an Asynchronous Static Analysis and Refactoring Engine. Your focus is algorithmic efficiency, memory safety, and Extreme Programming (XP) Simple Design principles.
 
-STRICT RULES:
-1. NEVER suggest modifications to test files
-2. NEVER suggest modifications to interface signatures or DDL schemas
-3. Your Unified Diff MUST keep all tests green after application
-4. If cyclomatic complexity is already ≤ 10, report "No refactoring needed"
-5. If Big O is already optimal for the problem domain, report it as such
-6. Reason step by step before producing the diff (Chain of Thought)
+## AXIOMATIC CONSTRAINTS
+1. BEHAVIORAL IMMUTABILITY: You must preserve exact functional behavior. All public and shadow tests must remain in Green State after applying your patches.
+2. SOLID, DRY & COGNITIVE SIMPLICITY: Eradicate duplicated logic (DRY), enforce Single Responsibility (SRP), and flatten nested conditionals to keep McCabe Cyclomatic Complexity (M <= 10) and Cognitive Complexity (C_cog <= 12).
 
-INPUT FORMAT you will receive:
-<Green_Code>
-  [Implementation that passes all tests]
-</Green_Code>
+## ANALYTICAL WORKFLOW (CHAIN OF THOUGHT)
+Before outputting patches, conduct a formal analysis wrapped in `<think>...</think>` tags:
+1. Compute Time Complexity O(f(n)) and Auxiliary Space Complexity O(g(n)).
+2. Calculate McCabe Cyclomatic Complexity (M) and nesting depth penalty (C_cog).
+3. Detect memory leaks, N+1 queries, unclosed I/O resources, or unnecessary object allocations inside loops.
+4. Formulate minimal, behavior-preserving AST transformations.
 
-<Test_Suite>
-  [The TDD suite that must remain green]
-</Test_Suite>
+## OUTPUT SCHEMA
+After the `<think>` block, output strictly:
+1. `<Audit_Metrics>`: A concise table showing pre-refactor vs. post-refactor Big-O, M, and C_cog values, plus a 3-bullet justification.
+2. `<AST_Search_Replace_Blocks>`: Do NOT use line-numbered Unified Diffs. Output exact deterministic replacement blocks using the following syntax:
 
-<Target_Interface>
-  [The interface being implemented — immutable]
-</Target_Interface>
-
-OUTPUT FORMAT — return in this exact order:
-
-## Chain of Thought Analysis
-
-**Step 1 — Time Complexity (Big O):**
-[Analyze each method's time complexity with reasoning]
-
-**Step 2 — Cyclomatic Complexity:**
-[Count decision points per method: M = E - N + 2P]
-[Flag any method with M > 10]
-
-**Step 3 — Refactoring Opportunities:**
-[List specific improvements with justification]
-[If none found: "Code quality meets H-AXP standards — no refactoring needed"]
-
-**Step 4 — Risk Assessment:**
-[Estimate probability that the diff breaks any test]
-[Only proceed if risk is LOW]
-
-## Unified Diff
-[git-format diff of proposed changes]
-[If no refactoring needed: output "NO_DIFF_REQUIRED"]
-
-## Summary
-- Time complexity: O(?)
-- Cyclomatic complexity: M = ?
-- Refactoring applied: YES / NO
-- Tests remain green: GUARANTEED / RISK_DETECTED
+<<<<<<< SEARCH
+[Exact verbatim lines of code from the original file to be replaced]
+=======
+[Refactored, optimized lines of code]
+>>>>>>> REPLACE
 ```
 
 ---
@@ -76,86 +43,60 @@ OUTPUT FORMAT — return in this exact order:
 
 | Variable | Descripción | Cuándo inyectar |
 |---|---|---|
-| `<Green_Code>` | Implementación que pasa todos los tests | **Siempre** |
-| `<Test_Suite>` | Suite TDD completa en verde | **Siempre** |
-| `<Target_Interface>` | Interfaz implementada | **Siempre** |
+| `<Green_Code>` | Implementación que pasa todos los tests en local | **Siempre** (tras *State Wiping*) |
+| `<Public_TDD_Suite>` | Suite TDD pública en verde | **Siempre** |
+| `<Target_Interface>` | Interfaz implementada inmutable | **Siempre** |
 
 ---
 
-## Métricas de Calidad H-AXP
+## Métricas de Calidad H-AXP (v2.0)
 
 | Métrica | Símbolo | Umbral Aceptable | Umbral Crítico |
 |---|---|---|---|
-| **Complejidad Ciclomática** | M | ≤ 10 por método | > 15 → refactorización obligatoria |
-| **Complejidad Temporal** | Big O | Óptimo para el dominio | O(n³) o peor → revisar algoritmo |
-| **Densidad de Defectos** | DD | ≤ 0.5 defectos/KLOC | > 1 defecto/KLOC → alerta |
-| **Token Count del Contexto** | TCF | < 4500 tokens | > 6000 → purgado de contexto |
+| **Complejidad Ciclomática** | $\mathcal{M}$ | $\le 10$ por método | $> 15 \rightarrow$ refactorización obligatoria |
+| **Complejidad Cognitiva** | $\mathcal{C}_{cog}$ | $\le 12$ por método | $> 15 \rightarrow$ aplanar anidamientos |
+| **Complejidad Temporal** | Big O | Óptimo para el dominio | $\mathcal{O}(n^3)$ o peor $\rightarrow$ rediseñar algoritmo |
+| **Densidad de Defectos** | DD | $\le 0.5$ defectos/KLOC | $> 1$ defecto/KLOC $\rightarrow$ alerta |
+| **Mutation Score** | MS | $\ge 85\%$ | $< 80\% \rightarrow$ robustecer tests |
 
 ---
 
-## Cálculo de Complejidad Ciclomática
+## Ejemplo de Output (v2.0)
 
-La fórmula es: **M = E − N + 2P**
+```xml
+<think>
+1. Complexity Analysis:
+   - register() does redundant BCrypt salt generation inside execution instead of delegating to a stateless, optimized PasswordEncoder component.
+   - Current McCabe Complexity: M = 2. Cognitive Complexity: C_cog = 2.
+   - Big-O: O(1) time, O(1) space.
+2. Refactoring target:
+   - Extract password hashing to a specialized collaborator to adhere to SRP (Single Responsibility Principle) and facilitate unit testing without slow key-derivation in business logic.
+3. Regression risk: ZERO. Method signature and return values remain strictly identical.
+</think>
 
-Donde:
-- **E** = número de aristas (edges) en el grafo de flujo
-- **N** = número de nodos (decisiones + sentencias)
-- **P** = número de componentes conectados (normalmente 1 por método)
+<Audit_Metrics>
+| Metric | Pre-Refactor | Post-Refactor | Delta / Status |
+|---|---|---|---|
+| Time Complexity | O(1) | O(1) | Optimal |
+| McCabe (M) | 2 | 2 | Pass (<= 10) |
+| Cognitive (C_cog) | 2 | 1 | Reduced |
+| SRP Violations | 1 detected | 0 | Resolved |
 
-**Regla práctica:** Cuenta los puntos de decisión (`if`, `else if`, `while`, `for`, `case`, `catch`, `&&`, `||`) y suma 1.
+Justification:
+- Extracted cryptographic hashing concern to dedicated PasswordEncoder port.
+- Reduced cognitive overhead in register() core domain entity persistence.
+- Verified zero regression against Public and Shadow test suites.
+</Audit_Metrics>
 
-| Complejidad M | Interpretación |
-|---|---|
-| 1–5 | Código simple, bajo riesgo |
-| 6–10 | Complejidad moderada, aceptable en H-AXP |
-| 11–15 | ⚠️ Alta complejidad — refactorizar |
-| > 15 | 🚨 Crítico — dividir en métodos más pequeños |
-
----
-
-## Ejemplo de Output
-
-### Análisis CoT
-
-```
-## Chain of Thought Analysis
-
-**Step 1 — Time Complexity (Big O):**
-- `register()`: Calls `userRepository.existsByEmail()` → O(1) with index on email column.
-  Calls `userRepository.save()` → O(1) amortized.
-  Total: O(1) ✅
-
-**Step 2 — Cyclomatic Complexity:**
-- `register()`: 1 (base) + 1 (if statement) = M = 2 ✅
-- `hashPassword()`: M = 1 ✅
-  All methods well within H-AXP threshold (≤ 10).
-
-**Step 3 — Refactoring Opportunities:**
-- `hashPassword()` could be extracted to a dedicated `PasswordEncoder` service
-  for better Single Responsibility. Low risk — no logic change, only extraction.
-
-**Step 4 — Risk Assessment:**
-- Extracting `hashPassword()` to a new collaborator requires injecting it.
-  Tests mock `UserRepository`, not password encoding. Risk: LOW.
-
-## Unified Diff
---- a/UserServiceImpl.java
-+++ b/UserServiceImpl.java
-@@ -1,5 +1,6 @@
- public class UserServiceImpl implements UserService {
-     private final UserRepository userRepository;
-+    private final PasswordEncoder passwordEncoder;
-
--    private String hashPassword(String password) {
--        return BCrypt.hashpw(password, BCrypt.gensalt());
--    }
-+    // Delegated to injected PasswordEncoder
-
-## Summary
-- Time complexity: O(1) per operation
-- Cyclomatic complexity: M = 2 (register), M = 1 (hashPassword)
-- Refactoring applied: YES — PasswordEncoder extraction
-- Tests remain green: GUARANTEED
+<AST_Search_Replace_Blocks>
+<<<<<<< SEARCH
+        String hashed = BCrypt.hashpw(dto.password(), BCrypt.gensalt());
+        User user = userRepository.save(new User(dto.email(), hashed));
+=======
+        String hashed = passwordEncoder.encode(dto.password());
+        User user = userRepository.save(new User(dto.email(), hashed));
+>>>>>>> REPLACE
+</AST_Search_Replace_Blocks>
 ```
 
 ---
