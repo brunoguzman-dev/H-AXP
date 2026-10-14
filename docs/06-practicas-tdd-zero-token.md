@@ -72,7 +72,7 @@ flowchart TD
         REFACTOR["Código Verde enviado al Nodo de Calidad\n(Limpieza de historial - State Wiping)"]
         REFACTOR --> COT["Agente Razonador (CoT) calcula:\nBig O · McCabe M <= 10 · C_cog <= 12"]
         COT --> DIFF["Genera bloques deterministas\nSEARCH / REPLACE"]
-        DIFF --> ARBITRO{Humano árbitra\n(HATR <= 25%)}
+        DIFF --> ARBITRO{Humano árbitra(HATR <= 25%)}
         ARBITRO -->|Acepta| APLICAR["Aplicar parche SEARCH/REPLACE\nRe-ejecutar suites TDD"]
         ARBITRO -->|Rechaza| DONE
         APLICAR --> DONE
